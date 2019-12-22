@@ -4,7 +4,7 @@ package student
 func PrintCombN(n int) {
 
 	if n < 1 || n > 9 {
-		print("Error\n")
+		Print("\n")
 		return
 	}
 
@@ -13,11 +13,11 @@ func PrintCombN(n int) {
 	lastNumber := getLastNumber(n)
 
 	for current != lastNumber {
-		print(current, ", ")
+		Print(current + ", ")
 		current = getNextNumber(current)
 	}
 
-	print(current + "\n")
+	Print(current + "\n")
 }
 
 func getNextNumber(curr string) string {

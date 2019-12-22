@@ -12,13 +12,22 @@ func Print(s string) {
 // PrintNbr print number
 func PrintNbr(n int) {
 
-	if n < 0 {
-		z01.PrintRune('-')
-		n *= -1
+	r := ""
+
+	if n == 0 {
+		z01.PrintRune('0')
+	} else if n < 0 {
+		Print("-")
+		for n != 0 {
+			r = string(rune((n%10*-1)+48)) + r
+			n /= 10
+		}
+	} else if n > 0 {
+		for n != 0 {
+			r = string(rune((n%10)+48)) + r
+			n /= 10
+		}
 	}
 
-	if n != 0 {
-		PrintNbr(n / 10)
-		z01.PrintRune(rune(n%10 + 48))
-	}
+	Print(r)
 }

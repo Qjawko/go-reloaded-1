@@ -1,33 +1,89 @@
 package student
 
+// MaxInt64 max int64 value
+var MaxInt64 int = 9223372036854775807
+
+// MinInt64 min int64 value
+var MinInt64 int = -9223372036854775808
+
 // Atoi basic atoi
 func Atoi(s string) int {
-	r := 0
-	sign := 1
+	result := 0
 
-	for i, c := range s {
-		if c >= '0' && c <= '9' {
-			// prev := r
-
-			r = r*10 + int(c-48)
-
-			// catch overflow
-			// if prev != 0 && prev > r {
-			// 	return 0
-			// }
-
-		} else if i == 0 {
-			if c == '-' {
-				sign = -1
-			} else if c != '+' {
-				return 0
-			}
-		} else {
-			return 0
-		}
+	if !isValidNumber(s) {
+		return 0
 	}
 
-	// fmt.Println(r)
+	flag := false
 
-	return r * sign
+	if s[0] == '-' || s[0] == '+' {
+		if s[0] == '-' {
+			flag = true
+		}
+		s = s[1:]
+	}
+
+	s = RemoveLeadingZeroes(s)
+
+	if s == "0" {
+		return 0
+	}
+
+	for _, c := range s {
+		x := int(c - '0')
+
+		if flag {
+			// negative case
+			// check for overflow
+			if result < (MinInt64+x)/10 {
+				return 0
+			}
+
+			result = result*10 - x
+			continue
+		}
+
+		// positive case
+		// check for overflow
+		if result > (MaxInt64-x)/10 {
+			return 0
+		}
+		result = result*10 + x
+	}
+
+	return result
+}
+
+// RemoveLeadingZeroes from string
+func RemoveLeadingZeroes(s string) string {
+	len := 0
+	for range s {
+		len++
+	}
+
+	if len < 2 {
+		return s
+	}
+
+	if s[0] == '0' {
+		return RemoveLeadingZeroes(s[1:])
+	}
+
+	return s
+}
+
+func isValidNumber(s string) bool {
+	for i, c := range s {
+
+		if c == '+' || c == '-' && i == 0 {
+			continue
+		}
+
+		if c < '0' || c > '9' {
+			return false
+		}
+
+	}
+
+	return true
 }

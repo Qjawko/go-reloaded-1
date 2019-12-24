@@ -12,7 +12,7 @@ func SplitWhiteSpaces(str string) []string {
 	// count words
 	wordCount := 1
 	for _, c := range str {
-		if c == ' ' {
+		if c == ' ' || c == '\t' || c == '\n' {
 			wordCount++
 		}
 	}
@@ -22,7 +22,7 @@ func SplitWhiteSpaces(str string) []string {
 	currentIndex := 0
 
 	for _, c := range str {
-		if c != ' ' {
+		if c != ' ' && c != '\t' && c != '\n' {
 			result[currentIndex] += string(c)
 		} else {
 			currentIndex++
@@ -42,11 +42,11 @@ func trimWhitespaces(s string) string {
 		return s
 	}
 
-	if s[0] == ' ' {
+	if s[0] == ' ' || s[0] == '\t' || s[0] == '\n' {
 		return trimWhitespaces(s[1:])
 	}
 
-	if s[sLen-1] == ' ' {
+	if s[sLen-1] == ' ' || s[sLen-1] == '\t' || s[sLen-1] == '\n' {
 		return trimWhitespaces(s[:sLen-1])
 	}
 
@@ -57,7 +57,7 @@ func leaveOneSpace(s string) string {
 	r := ""
 
 	for i, c := range s {
-		if c != ' ' || (c == ' ' && (i == 0 || s[i-1] != ' ')) {
+		if (c != ' ' && c != '\t' && c != '\n') || ((c == ' ' || c == '\t' || c == '\n') && (i == 0 || (s[i-1] != ' ' && s[i-1] != '\t' && s[i-1] != '\n'))) {
 			r += string(c)
 		}
 	}

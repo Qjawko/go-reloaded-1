@@ -1,12 +1,10 @@
 package main
 
 import (
-	"bufio"
-	"fmt"
 	"io/ioutil"
 	"os"
 
-	"github.com/01-edu/z01"
+	student ".."
 )
 
 func main() {
@@ -18,27 +16,28 @@ func main() {
 	}
 
 	if aLen == 0 {
+		const bufSize = 512
+		bufOut := make([]byte, bufSize)
+		n := 0
+
 		for {
-			reader := bufio.NewReader(os.Stdin)
-			text, _ := reader.ReadString('\n')
-			fmt.Print(text)
+			os.Stdin.Read(bufOut[n : n+1])
+
+			if bufOut[n] == '\n' || n == bufSize {
+				student.Print(string(bufOut))
+				n = 0
+			} else {
+				n++
+			}
 		}
 	}
 
-	for _, filename := range args {
-		data, err := ioutil.ReadFile(filename)
-
+	for _, fileName := range args {
+		bytes, err := ioutil.ReadFile(fileName)
 		if err != nil {
-			fmt.Println(err)
+			student.Print(err.Error() + "\n")
+			continue
 		}
-
-		print(string(data))
-	}
-
-}
-
-func print(s string) {
-	for _, c := range s {
-		z01.PrintRune(c)
+		student.Print(string(bytes))
 	}
 }

@@ -23,7 +23,7 @@ func Atoi(s string) int {
 		s = s[1:]
 	}
 
-	s = RemoveLeadingZeroes(s)
+	s = RemoveLeadingChar(s, '0')
 
 	if s == "0" {
 		return 0
@@ -54,8 +54,8 @@ func Atoi(s string) int {
 	return result
 }
 
-// RemoveLeadingZeroes from string
-func RemoveLeadingZeroes(s string) string {
+// RemoveLeadingChar from string
+func RemoveLeadingChar(s string, char byte) string {
 	len := 0
 	for range s {
 		len++
@@ -65,8 +65,8 @@ func RemoveLeadingZeroes(s string) string {
 		return s
 	}
 
-	if s[0] == '0' {
-		return RemoveLeadingZeroes(s[1:])
+	if s[0] == char {
+		return RemoveLeadingChar(s[1:], char)
 	}
 
 	return s

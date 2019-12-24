@@ -4,7 +4,7 @@ package student
 func ActiveBits(n int) uint {
 	var count uint
 	for n != 0 {
-		if n%2 == 1 {
+		if n%2 == 1 || n%2 == -1 {
 			count++
 		}
 		n /= 2

@@ -14,6 +14,7 @@ func main() {
 		argsLen++
 	}
 
+	// check for length of arguments
 	if argsLen == 0 {
 		print("\n")
 		return

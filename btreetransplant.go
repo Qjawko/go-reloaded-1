@@ -8,8 +8,17 @@ type TreeNode struct {
 
 // BTreeTransplant q
 func BTreeTransplant(root, node, rplc *TreeNode) *TreeNode {
+	if node == root {
+		return rplc
+	}
 
-	node.Data = rplc.Data
+	if node.Parent.Left == node {
+		node.Parent.Left = rplc
+	} else if node.Parent.Right == node {
+		node.Parent.Right = rplc
+	} else {
+		Print("Node not found in given root\n")
+	}
 
 	return root
 }

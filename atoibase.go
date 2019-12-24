@@ -1,9 +1,15 @@
 package student
 
 // AtoiBase s to base
-func AtoiBase(s string, base string) int {
+func AtoiBase(nbr string, base string) int {
 
+	// check if base is valid
 	if !isValidBase(base) {
+		return 0
+	}
+
+	// check if base contains nbr characters
+	if !checkNumberForBase(nbr, base) {
 		return 0
 	}
 
@@ -13,15 +19,23 @@ func AtoiBase(s string, base string) int {
 	}
 
 	sLen := 0
-	for range s {
+	for range nbr {
 		sLen++
 	}
 
 	r := 0
-	for i, c := range s {
+	for in, n := range nbr {
 		for ib, b := range base {
-			if c == b {
-				r += ib * recursivePower2(baseLen, sLen-1-i)
+			if n == b {
+
+				x := ib * RecursivePower(baseLen, sLen-1-in)
+
+				// handle overflow
+				if r > MaxInt64-x {
+					return 0
+				}
+
+				r += x
 			}
 		}
 	}
@@ -29,14 +43,20 @@ func AtoiBase(s string, base string) int {
 	return r
 }
 
-func recursivePower2(nb int, power int) int {
-	if power < 0 || nb == 0 {
-		return 0
+func checkNumberForBase(nbr, base string) bool {
+	for _, n := range nbr {
+		flag := false
+		for _, b := range base {
+			if b == n {
+				flag = true
+				break
+			}
+		}
+
+		if !flag {
+			return false
+		}
 	}
 
-	if power == 0 {
-		return 1
-	}
-
-	return nb * recursivePower2(nb, power-1)
+	return true
 }

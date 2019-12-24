@@ -19,11 +19,17 @@ func SortListInsert(l *NodeI, dataRef int) *NodeI {
 		return &NodeI{Next: l, Data: dataRef}
 	}
 
-	for iterator := l; iterator.Next != nil; iterator = iterator.Next {
+	for iterator := l; iterator != nil; iterator = iterator.Next {
+
+		if iterator.Next == nil {
+			iterator.Next = &NodeI{Data: dataRef}
+			return l
+		}
+
 		if iterator.Next.Data > dataRef {
 			newItem := &NodeI{Next: iterator.Next, Data: dataRef}
 			iterator.Next = newItem
-			break
+			return l
 		}
 	}
 

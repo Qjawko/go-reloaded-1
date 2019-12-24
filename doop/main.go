@@ -23,8 +23,8 @@ func main() {
 	}
 
 	// trim zeroes
-	args[0] = student.RemoveLeadingZeroes(args[0])
-	args[2] = student.RemoveLeadingZeroes(args[2])
+	args[0] = student.RemoveLeadingChar(args[0], '0')
+	args[2] = student.RemoveLeadingChar(args[2], '0')
 
 	n1 := student.Atoi(args[0])
 	n2 := student.Atoi(args[2])
@@ -135,5 +135,6 @@ func main() {
 		return
 	}
 
+	// if sign is invalid
 	student.Print("0\n")
 }

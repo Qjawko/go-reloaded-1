@@ -32,7 +32,7 @@ func Split(str, charset string) []string {
 		if str[i] == charset[0] {
 			flag = true
 
-			for j := 0; j < charsetLen; j++ {
+			for j := 1; j < charsetLen; j++ {
 				if str[i+j] != charset[j] {
 					flag = false
 				}

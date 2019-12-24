@@ -7,8 +7,8 @@ func AdvancedSortWordArr(array []string, f func(a, b string) int) {
 		return
 	}
 
-	for range array {
-		for i := 1; i < len(array); i++ {
+	for x := 0; x < len(array)-1; x++ {
+		for i := 1; i < len(array)-x; i++ {
 			a := array[i-1]
 			b := array[i]
 
